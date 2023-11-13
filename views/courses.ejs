@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- general meta tags -->
+  <meta charset="utf-8">
+  <meta name="author" content="">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- site specific tags -->
+  <title>Courses</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div>
+    <%- include('./partials/nav.ejs') %>
+</div>
+  <header>
+    <h1>Courses:</h1>
+  </header>
+  <main>
+    <section>
+      <article>
+        <table id="courses">
+          <thead>
+            <tr>
+              <th>Course name</th>
+              <th>Description</th>
+              <th>Average Grade</th>
+              <th>Deleting</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(courses){ %>
+              <% courses.forEach((course) => { %>
+                  <tr>
+                      <td><%= course.course %></td>
+                      <td><%= course.description %></td>
+                      <td><%= course.averageGrade.reduce((acc, current) => acc + current, 0) / course.averageGrade.length %></td>
+                      <td><form action="/courses/delete/<%= course._id %>" method="post"><input type="submit" value="Delete"></form></td>
+                  </tr>
+              <% }) %>
+            <% } %>
+          </tbody>
+        </table>
+      </article>
+    </section>
+  </main>
+  <footer>
+    <p>@Copyright 2022</p>
+  </footer>
+</body>
+</html>

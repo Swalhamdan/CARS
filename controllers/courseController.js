@@ -1,4 +1,6 @@
 const Course = require('../model/course');
+const User = require('../model/user');
+const { setCurrentUser, getCurrentUser} = require('../public/globals');
 
 var ERROR = "";
 
@@ -13,6 +15,36 @@ const getCourses = (request, response) => {
       response.render('courses', {title: "Courses", courses: [], error: ERROR});
     });
 }
+
+const getMyCourses = (req, res) => {
+  let courses = [];
+  Course.find()
+    .then((result) => {
+      courses = result;
+
+      const currentUserCourses = getCurrentUser().courses;
+      const myCourses = [];
+
+      courses.forEach((course) => {
+        if (currentUserCourses.includes(course.course)) {
+          myCourses.push(course);
+        }
+      });
+      if(getCurrentUser().role === 'instructor'){
+        res.render('instructorCourses', { title: 'My Courses', courses: myCourses, error: ERROR });
+      }
+      if(getCurrentUser().role === 'student'){
+        res.render('studentCourses', { title: 'My Courses', courses: myCourses, error: ERROR });
+      }
+      
+    })
+    .catch((error) => {
+      console.error('Error fetching courses:', error);
+      res.status(500).send('Internal Server Error');
+    });
+};
+
+
 // const getCourses = (request, response) => {
 //     Course.find()
 //       .then((courses) => {
@@ -118,4 +150,4 @@ const addGrade = (req, res) => {
             res.redirect('/courses/addGrades'); // Redirect to a suitable URL in case of an error
         });
 };
-module.exports = {getCourses, addCourse, openAddCourseForm, deleteCourse, addGrade, openAddGradeForm};
+module.exports = {getCourses, addCourse, openAddCourseForm, deleteCourse, addGrade, openAddGradeForm, getMyCourses};

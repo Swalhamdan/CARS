@@ -4,8 +4,9 @@ const User = require('../model/user');
 
 const authPage = (permissions) => {
     return (req, res, next) => {
-        const userRole = req.body.role;
-        if(permissions.includes(userRole)){
+        const user = getCurrentUser();
+        if(permissions.includes(user.role)){
+            console.log('auth')
             next();
         } else{
             return res.status(401).send('<h1>Error 401: You do not have permission to access this page</h1>');

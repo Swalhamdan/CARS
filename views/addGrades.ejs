@@ -12,7 +12,7 @@
 </head>
 <body>
   <div>
-    <%- include('./partials/nav.ejs') %>
+    <%- include('./partials/adminNav.ejs') %>
 </div>
   <header>
     <h1>Courses:</h1>
@@ -36,7 +36,7 @@
                       <td><%= course.course %></td>
                       <td><%= course.description %></td>
                       <td><%= course.averageGrade.reduce((acc, current) => acc + current, 0) / course.averageGrade.length %></td>
-                      <td><form action="/courses/addGrades/id=<%= course._id %>/grade=<%= grade %>" method="post">
+                      <td><form action="/adminAddGrades/id=<%= course._id %>/grade=<%= grade %>" method="post">
                         <label for="grade">Grade:</label>
                         <input type="number" name="grade" id="grade" required placeholder="Grade" required min="0" max="100"><br>
                         <input type="submit" value="addGrade">

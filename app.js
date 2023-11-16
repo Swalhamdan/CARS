@@ -18,6 +18,7 @@ const userController = require('./routers/userRouter');
 const adminController = require('./controllers/adminController');
 
 const { authPage } = require('./middlewares/authorization');
+const { setCurrentUser, resetCurrentUser } = require('./public/globals');
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -30,6 +31,7 @@ mongoose.connect(process.env.MONGO_URI)
     console.log("Connected to database...");
     app.listen(process.env.PORT, () => {
       console.log(`Server listening at port ${process.env.PORT}`);
+      resetCurrentUser();
     });
   })
   .catch( (err) => {
@@ -38,27 +40,33 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 
-app.get('/', (req, res) =>{
+app.get('/', resetCurrentUser(), (req, res) =>{
     res.render('home');
 })
 
-app.use('/login', userRouter);
+app.use('/login',authPage(['not logged in']), userRouter);
 
-app.use('/courses', coursesRouter);
+app.use('/courses', authPage(['admin']), coursesRouter);
+
+app.get('/addGrades', authPage(['instructor']), coursesController.openAddGradeForm)
+
+app.get('/adminAddGrades', authPage(['admin']), coursesController.openAdminAddGradeForm)
 
 
-app.use('/courses/delete/:id', coursesController.deleteCourse);
+app.use('/courses/delete/:id', authPage(['admin']), coursesController.deleteCourse);
 
-app.use('/courses/addGrades/:id/:grade', coursesController.addGrade);
+app.post('/addGrades/:id/:grade', authPage(['instructor']), coursesController.addGrade);
 
-app.use('/myCourses', coursesController.getMyCourses);
+app.post('/adminAddGrades/:id/:grade', authPage(['admin']), coursesController.adminAddGrade);
 
-app.use('/addUser', adminRouter)
-app.use('/addCourseToUserForm', (req, res) => {
+app.use('/myCourses', authPage(['admin', 'instructor', 'student']), coursesController.getMyCourses);
+
+app.use('/addUser', authPage(['admin']), adminRouter)
+app.use('/addCourseToUserForm', authPage(['admin']), (req, res) => {
   res.render('addCoursesToUser');
 });
 
-app.post('/addCourseToUser', adminController.addCoursesToUser);
+app.post('/addCourseToUser', authPage(['admin']), adminController.addCoursesToUser);
 
 
 app.use((req,res) =>{

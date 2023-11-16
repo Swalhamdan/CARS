@@ -7,12 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- site specific tags -->
-  <title>Courses</title>
+  <title>Add Grades</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <div>
-    <%- include('./partials/studentNav.ejs') %>
+    <%- include('./partials/instructorNav.ejs') %>
 </div>
   <header>
     <h1>Courses:</h1>
@@ -26,6 +26,7 @@
               <th>Course name</th>
               <th>Description</th>
               <th>Average Grade</th>
+              <th>Add a Grade</th>
             </tr>
           </thead>
           <tbody>
@@ -35,6 +36,11 @@
                       <td><%= course.course %></td>
                       <td><%= course.description %></td>
                       <td><%= course.averageGrade.reduce((acc, current) => acc + current, 0) / course.averageGrade.length %></td>
+                      <td><form action="/addGrades/id=<%= course._id %>/grade=<%= grade %>" method="post">
+                        <label for="grade">Grade:</label>
+                        <input type="number" name="grade" id="grade" required placeholder="Grade" required min="0" max="100"><br>
+                        <input type="submit" value="grade">
+                    </form></td>
                   </tr>
               <% }) %>
             <% } %>

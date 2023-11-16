@@ -44,34 +44,36 @@ const getMyCourses = (req, res) => {
     });
 };
 
-
-// const getCourses = (request, response) => {
-//     Course.find()
-//       .then((courses) => {
-//         if (!courses) {
-//           ERROR = "No courses found";
-//           return response.render('courses', { title: "Courses", courses: [], error: ERROR });
-//         }
-  
-//         const coursesWithAverages = courses.map((course) => {
-//           const grades = course.grades;
-//           const average = grades.length > 0 ? grades.reduce((acc, current) => acc + current, 0) / grades.length : 0;
-//           return { ...course.toObject(), average }; // Add the 'average' property to the course
-//         });
-  
-//         response.render('courses', { title: "Courses", courses: coursesWithAverages, error: ERROR });
-//       })
-//       .catch((err) => {
-//         ERROR = "Data Couldn't be loaded!";
-//         response.render('courses', { title: "Courses", courses: [], error: ERROR });
-//       });
-//   };
-  
 const openAddCourseForm = (request, response) => {
     response.render('addCourse')
 }
 
 const openAddGradeForm = (request, response) => {
+    const grade = request.body.grade;
+    Course.find()
+    .then( (result) => {
+
+      courses = result;
+
+      const currentUserCourses = getCurrentUser().courses;
+      const myCourses = [];
+
+      courses.forEach((course) => {
+        if (currentUserCourses.includes(course.course)) {
+          myCourses.push(course);
+        }
+      });
+      console.log(grade);
+      response.render('instructorAddGrades', {title: "Adding Grades", courses: myCourses, grade, error: ERROR});
+      ERROR = "";
+    })
+    .catch( (err) => {
+      ERROR = "Data Couldn't be loaded!";
+      response.render('instructorAddGrades', {title: "Adding Grades", courses: myCourses, grade, error: ERROR});
+    });
+}
+
+const openAdminAddGradeForm = (request, response) => {
     const grade = request.body.grade;
     Course.find()
     .then( (result) => {
@@ -115,16 +117,6 @@ const deleteCourse = (req, res) => {
         .catch( (err) => {console.log(err)})
 };
 
-// const addGrade = (req, res) => {
-//     const id = req.params.id;
-//     const grade = req.params.grade;
-//     Course.findByIdAndUpdate({_id: id}, {$push: {averageGrade: grade}}, {new: true})
-//         .then((result) =>{
-//             console.log(`Course grade updated in the database id: ${result._id}`)
-//             res.redirect('/courses/addGrades')
-//         })
-//         .catch((err) => console.log(err))
-// }
 const addGrade = (req, res) => {
     const id = req.params.id.replace('id=', '');
     const grade = req.body.grade;
@@ -139,15 +131,41 @@ const addGrade = (req, res) => {
         .then((updatedCourse) => {
             if (!updatedCourse) {
                 console.log('Course not found');
-                res.redirect('/courses/addGrades'); // Redirect to a suitable URL
+                res.redirect('/addGrades'); // Redirect to a suitable URL
             } else {
                 console.log(`Course grade updated in the database, id: ${updatedCourse._id}`);
-                res.redirect('/courses/addGrades'); // Redirect to a suitable URL
+                res.redirect('/addGrades'); // Redirect to a suitable URL
             }
         })
         .catch((err) => {
             console.error(err);
-            res.redirect('/courses/addGrades'); // Redirect to a suitable URL in case of an error
+            res.redirect('/addGrades'); // Redirect to a suitable URL in case of an error
         });
 };
-module.exports = {getCourses, addCourse, openAddCourseForm, deleteCourse, addGrade, openAddGradeForm, getMyCourses};
+const adminAddGrade = (req, res) => {
+    const id = req.params.id.replace('id=', '');
+    const grade = req.body.grade;
+    console.log(id);
+    console.log(grade);
+
+    Course.findByIdAndUpdate(
+        { _id: id },
+        { $push: { averageGrade: grade } },
+        { new: true } // To return the updated document
+    )
+        .then((updatedCourse) => {
+            if (!updatedCourse) {
+                console.log('Course not found');
+                res.redirect('/adminAddGrades'); // Redirect to a suitable URL
+            } else {
+                console.log(`Course grade updated in the database, id: ${updatedCourse._id}`);
+                res.redirect('/adminAddGrades'); // Redirect to a suitable URL
+            }
+        })
+        .catch((err) => {
+            console.error(err);
+            res.redirect('/adminAddGrades'); // Redirect to a suitable URL in case of an error
+        });
+};
+module.exports = {getCourses, addCourse, openAdminAddGradeForm, openAddCourseForm, deleteCourse,
+   addGrade, openAddGradeForm, getMyCourses, adminAddGrade};

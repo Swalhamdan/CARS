@@ -11,6 +11,7 @@ const app = express();
 dotenv.config();
 
 app.set('view engine', 'ejs');
+app.use(express.static('public')); 
 
 const accountRouter = require('./routes/account.router');
 
@@ -45,11 +46,14 @@ app.use(express.urlencoded({ extended: true }));
 // const Service = require('./model/service');
 app.use('/account', accountRouter);
 
-app.get('/', async (request, response) => {
-return response.render("landing")
+
+app.get('', async (request, response) => {
+    return response.render("landing")
 });
 
-
+app.get('/dashboard', async (request, response) => {
+    return response.render("dashboard/coursesList")
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

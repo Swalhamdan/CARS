@@ -11,8 +11,10 @@ const app = express();
 dotenv.config();
 
 app.set('view engine', 'ejs');
+app.use(express.static('public')); 
 
 const accountRouter = require('./routes/account.router');
+const courseRouter = require('./routes/course.router');
 
 
 
@@ -37,19 +39,21 @@ app.use(express.urlencoded({ extended: true }));
 
 // app.use(methodOverride('_method'));
 
-// app.use(express.static('views')); 
-// app.set('view engine', 'ejs');
 
 // app.use('/service', serviceRouter);
 
 // const Service = require('./model/service');
 app.use('/account', accountRouter);
+app.use('/course', courseRouter);
 
-app.get('/', async (request, response) => {
-return response.render("landing")
+
+app.get('', async (request, response) => {
+    return response.render("landing")
 });
 
-
+app.get('/dashboard', async (request, response) => {
+    return response.render("dashboard/coursesList")
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

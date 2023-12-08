@@ -10,8 +10,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="/img/favicon.png" rel="icon">
+  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -20,16 +20,16 @@
     rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -58,57 +58,9 @@
         <li class="nav-item pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown">
-            <img src="assets/img/userImage.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block ps-2">Student ID</span>
+            <img src="/img/userImage.jpg" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block ps-2"><%= data.studentId %></span>
           </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="coursesList.html">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
-
-          </ul>
           
           <!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->
@@ -125,7 +77,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="landing.html">Home</a></li>
-          <li class="breadcrumb-item"><a href="coursesList.html">Courses List</a></li>
+          <li class="breadcrumb-item"><a href="/dashboard">Courses List</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </nav>
@@ -142,19 +94,6 @@
             <div class="col-6">
               <div class="card info-card sales-card">
 
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <!-- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul> -->
-                </div>
-
                 <div class="card-body" style="padding-bottom: 30px;">
                   <h5 class="card-title">Student Rigestered <span>| Total</span></h5>
 
@@ -163,7 +102,7 @@
                       <i class="bi bi-person-plus-fill"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
+                      <h6><%= data.numRegisteredStudents %></h6>
                       <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                     </div>
@@ -179,15 +118,6 @@
 
                 <div class="filter">
                   <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <!-- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul> -->
                 </div>
 
                 <div class="card-body" style="padding-bottom: 30px;">
@@ -198,7 +128,7 @@
                       <i class="bi bi-person-check-fill"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>$3,264</h6>
+                      <h6><%= data.numPassedStudents %></h6>
                       <!-- <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                     </div>
@@ -437,35 +367,35 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-1.jpg" alt=""></a></th>
+                        <th scope="row"><a href="#"><img src="/img/product-1.jpg" alt=""></a></th>
                         <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas nulla</a></td>
                         <td>$64</td>
                         <td class="fw-bold">124</td>
                         <td>$5,828</td>
                       </tr>
                       <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-2.jpg" alt=""></a></th>
+                        <th scope="row"><a href="#"><img src="/img/product-2.jpg" alt=""></a></th>
                         <td><a href="#" class="text-primary fw-bold">Exercitationem similique doloremque</a></td>
                         <td>$46</td>
                         <td class="fw-bold">98</td>
                         <td>$4,508</td>
                       </tr>
                       <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-3.jpg" alt=""></a></th>
+                        <th scope="row"><a href="#"><img src="/img/product-3.jpg" alt=""></a></th>
                         <td><a href="#" class="text-primary fw-bold">Doloribus nisi exercitationem</a></td>
                         <td>$59</td>
                         <td class="fw-bold">74</td>
                         <td>$4,366</td>
                       </tr>
                       <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-4.jpg" alt=""></a></th>
+                        <th scope="row"><a href="#"><img src="/img/product-4.jpg" alt=""></a></th>
                         <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum error</a></td>
                         <td>$32</td>
                         <td class="fw-bold">63</td>
                         <td>$2,016</td>
                       </tr>
                       <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-5.jpg" alt=""></a></th>
+                        <th scope="row"><a href="#"><img src="/img/product-5.jpg" alt=""></a></th>
                         <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus repellendus</a></td>
                         <td>$79</td>
                         <td class="fw-bold">41</td>
@@ -579,7 +509,7 @@
                 document.addEventListener("DOMContentLoaded", () => {
                   new ApexCharts(document.querySelector("#barChart"), {
                     series: [{
-                      data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+                      data: [<%  for (let activity of data.activities){ %><%= activity.weight %>, <% } %>]
                     }],
                     chart: {
                       type: 'bar',
@@ -595,7 +525,7 @@
                       enabled: false
                     },
                     xaxis: {
-                      categories: ['Quiz 1', 'Quiz 2', 'Assignments','Attendance', 'Project', 'Major 1', 'Major 2', 'Final',],
+                      categories: [<%  for (let activity of data.activities){ %>"<%= activity.name %>", <% } %>],
                     }
                   }).render();
                 });
@@ -623,7 +553,7 @@
           </div>
 
           <div class="card-body pb-0">
-            <h5 class="card-title">Website Traffic <span>| Today</span></h5>
+            <h5 class="card-title">Distribution of Grades</h5>
 
             <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
 
@@ -638,7 +568,7 @@
                     left: 'center'
                   },
                   series: [{
-                    name: 'Access From',
+                    name: 'Grade',
                     type: 'pie',
                     radius: ['40%', '70%'],
                     avoidLabelOverlap: false,
@@ -656,26 +586,13 @@
                     labelLine: {
                       show: false
                     },
-                    data: [{
-                      value: 1048,
-                      name: 'Search Engine'
-                    },
-                    {
-                      value: 735,
-                      name: 'Direct'
-                    },
-                    {
-                      value: 580,
-                      name: 'Email'
-                    },
-                    {
-                      value: 484,
-                      name: 'Union Ads'
-                    },
-                    {
-                      value: 300,
-                      name: 'Video Ads'
-                    }
+                    data: [
+                      <%  for (let item of data.gradeDistribution){ %>
+                        {
+                          value: <%= item.count %>,
+                          name: "<%= item.grade %>"
+                        },
+                        <% } %>
                     ]
                   }]
                 });
@@ -692,49 +609,20 @@
                 <!-- Single item -->
                 <div class="carousel-item active">
                   <div class="container">
-                    <div class="row">
+                    <div class="row d-flex justify-content-center">
+                      <%  for (let testimonial of data.testimonials){ %>
                       <div class="col-lg-4">
                         <img class="rounded-circle shadow-1-strong mb-4"
-                          src="assets/img/userImage.jpg" alt="avatar"
+                          src="/img/userImage.jpg" alt="avatar"
                           style="width: 150px;" />
-                        <h5 class="mb-3">219110022</h5>
-                        <p>Computer Science</p>
+                        <h5 class="mb-3"><%= testimonial.studentId %></h5>
+                        <p><%= testimonial.major %></p>
                         <p class="text-muted">
                           <i class="fas fa-quote-left pe-2"></i>
-                          This course was extremely easy and informative.
+                          <%= testimonial.feedback %>
                         </p>
                       </div>
-
-                      <div class="col-lg-4 d-none d-lg-block">
-                        <img class="rounded-circle shadow-1-strong mb-4"
-                          src="assets/img/userImage.jpg" alt="avatar"
-                          style="width: 150px;" />
-                        <h5 class="mb-3">219210180</h5>
-                        <p>Information System</p>
-                        <p class="text-muted">
-                          <i class="fas fa-quote-left pe-2"></i>
-                          The course was a bit hard but you can easily manage it.
-                        </p>
-                      </div>
-
-                      <div class="col-lg-4 d-none d-lg-block">
-                        <img class="rounded-circle shadow-1-strong mb-4"
-                          src="assets/img/userImage.jpg" alt="avatar"
-                          style="width: 150px;" />
-                        <h5 class="mb-3">219110250</h5>
-                        <p>Software Engineer</p>
-                        <p class="text-muted">
-                          <i class="fas fa-quote-left pe-2"></i>
-                          I really like the way that the instructir is teaching this course. 
-                        </p>
-                        <ul class="list-unstyled d-flex justify-content-center text-warning mb-0">
-                          <li><i class="fas fa-star fa-sm"></i></li>
-                          <li><i class="fas fa-star fa-sm"></i></li>
-                          <li><i class="fas fa-star fa-sm"></i></li>
-                          <li><i class="fas fa-star fa-sm"></i></li>
-                          <li><i class="far fa-star fa-sm"></i></li>
-                        </ul>
-                      </div>
+                      <% } %>
                     </div>
                   </div>
                 </div>
@@ -770,17 +658,17 @@
       class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/chart.js/chart.umd.js"></script>
+  <script src="/vendor/echarts/echarts.min.js"></script>
+  <script src="/vendor/quill/quill.min.js"></script>
+  <script src="/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="/js/main.js"></script>
 
 </body>
 

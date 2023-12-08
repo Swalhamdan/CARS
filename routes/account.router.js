@@ -3,7 +3,6 @@ const router = express.Router();
 
 
 const accountController = require('../controllers/account.controller');
-console.log (accountController)
 
 // router.post('/register', accountController.postRegister);
 

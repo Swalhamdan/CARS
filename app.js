@@ -2,10 +2,19 @@
     Dependinces
 */
 const express = require('express');
+const dotenv = require('dotenv');
+
 // const mongoose = require('mongoose');
 // const methodOverride = require('method-override');
 
 const app = express();
+dotenv.config();
+
+app.set('view engine', 'ejs');
+
+const accountRouter = require('./routes/account.router');
+
+
 
 /* 
     Database 
@@ -34,10 +43,13 @@ app.use(express.urlencoded({ extended: true }));
 // app.use('/service', serviceRouter);
 
 // const Service = require('./model/service');
+app.use('/account', accountRouter);
 
 app.get('/', async (request, response) => {
-return response.send("hi")
+return response.render("landing")
 });
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

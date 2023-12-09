@@ -1,7 +1,7 @@
 const getCourseDetails = (request, response) => {
     let courseId = request.params.courseId;
     data = {
-        studentId: "219110037",
+        id:101,
         numRegisteredStudents: 10,
         numPassedStudents: 5,
         activities: [
@@ -23,7 +23,7 @@ const getCourseDetails = (request, response) => {
         testimonials: [
             { studentId: "219110250", major: "Information Systems", feedback: "I sucked at this course" },
             { studentId: "219110250", major: "Information Systems", feedback: "I sucked at this course" }
-        ]
+        ],
     }
     return response.render("course/course-details", { data: data })
 }

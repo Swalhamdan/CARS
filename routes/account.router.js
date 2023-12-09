@@ -1,19 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
+const catchAsync = require('../utils/catchAsync');
 
 
-const accountController = require('../controllers/account.controller');
+const account = require('../controllers/account.controller');
 
-// router.post('/register', accountController.postRegister);
 
-// router.get('/activate/:uid/:token', accountController.getActivateAccount);
-    
-router.post('/login', accountController.postLogin);
+router.route('/register')
+    .get(account.renderRegister)
+    .post(catchAsync(account.register));
 
-router.get('/login', accountController.getLogin);         
+router.route('/login')
+    .get(account.renderLogin)
+    .post(passport.authenticate('local', { failureRedirect: '/account/login' }), account.login)
 
-// router.post('/logout', accountController.postLogout);         
-
-// router.post('/check-authorization', accountController.isAuthorized);          
+router.get('/logout', account.logout)
 
 module.exports = router;

@@ -1,43 +1,41 @@
-const postLogin = async (request, response) => {
-	// let { email, password } = request.body;
+const Account = require('../model/account.model');
 
-	// if (!email || !password) {
-	// 	return response.status(400).send('Request missing username and/or password param')
-	// }
-	// try {
-	// 	let userObject = await User.findOne({ where: { email: email, status: 'active' } });
-
-	// 	if (!checkPassword(password, userObject.password))
-	// 		throw "Incorrect email or password"
-	// 	// return response.status(200).send({ access_token: { token: generateAccessToken({ userId: user.id }), tokenOptions } });
-	// 	return response.redirect('/dashboard');
-
-	// } catch (error) {
-	// 	console.error(error);
-	// 	return response.status(400).send({ message: 'Authentication unsuccessful' });
-	// }
-    return response.send("hi1")
+module.exports.renderRegister = (request, response) => {
+    response.render('account/register');
 }
 
-const getLogin = async (request, response) => {
-	// let { email, password } = request.body;
+module.exports.register = async (request, response, next) => {
+    try {
+        const { email, password } = request.body;
+        const account = new Account({ email });
+        const registeredAccount = await Account.register(account, password);
 
-	// if (!email || !password) {
-	// 	return response.status(400).send('Request missing username and/or password param')
-	// }
-	// try {
-	// 	let userObject = await User.findOne({ where: { email: email, status: 'active' } });
-
-	// 	if (!checkPassword(password, userObject.password))
-	// 		throw "Incorrect email or password"
-	// 	// return response.status(200).send({ access_token: { token: generateAccessToken({ userId: user.id }), tokenOptions } });
-	// 	return response.redirect('/dashboard');
-
-	// } catch (error) {
-	// 	console.error(error);
-	// 	return response.status(400).send({ message: 'Authentication unsuccessful' });
-	// }
-    return response.render("account/pages-login")
+        request.login(registeredAccount, err => {
+            if (err) return next(err);
+            response.redirect('/dashboard');
+        })
+    } catch (e) {
+        response.redirect('register');
+    }
 }
 
-module.exports = {postLogin, getLogin}
+module.exports.renderLogin = async (request, response) => {
+    account = await Account.findOne({ email: '219110085@psu.edu.sa' });
+    console.log(account)
+    response.render('account/pages-login');
+}
+
+module.exports.login = async (request, response) => {
+    console.log(request.body)
+    const redirectUrl = request.session.returnTo || '/dashboard';
+    delete request.session.returnTo;
+    response.redirect(redirectUrl);
+}
+
+
+module.exports.logout = (request, response, next) => {
+    request.logout(function(err) {
+    if (err) { return next(err); }
+        response.redirect('/pages-login');
+    });
+}

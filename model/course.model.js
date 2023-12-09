@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 // Schema for activities
 const activitySchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -20,7 +21,7 @@ const testimonialSchema = new mongoose.Schema({
 });
 
 const courseSchema = mongoose.Schema({
-    id: { type: Number, required: true },
+    course_id: { type: String, required: true },
     name: { type: String, required: true },
     numRegisteredStudents: { type: Number },
     numPassedStudents: { type: Number },

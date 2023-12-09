@@ -31,10 +31,7 @@ const courseRouter = require('./routes/course.router');
 
 const dbUrl = 'mongodb+srv://mohammed5ibnouf:xlcSXV3x6a3P1upc@cars.wec8tgx.mongodb.net/?retryWrites=true&w=majority';
 
-mongoose.connect(dbUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+mongoose.connect(dbUrl);
 
 const db = mongoose.connection;
 
@@ -95,13 +92,16 @@ passport.deserializeUser(Account.deserializeUser()); // How to delete the user f
 app.use('/account', accountRouter);
 app.use('/course', courseRouter);
 
+const catchAsync = require('./utils/catchAsync');
+const courseController = require('./controllers/course.controller');
+const { isLoggedIn } = require('./middleware');
+
+app.get('/dashboard', isLoggedIn, catchAsync(courseController.getCourses));
+
 app.get('', async (request, response) => {
     return response.render("landing")
 });
 
-app.get('/dashboard', async (request, response) => {
-    return response.render("dashboard/coursesList")
-});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

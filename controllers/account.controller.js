@@ -21,12 +21,10 @@ module.exports.register = async (request, response, next) => {
 
 module.exports.renderLogin = async (request, response) => {
     account = await Account.findOne({ email: '219110085@psu.edu.sa' });
-    console.log(account)
     response.render('account/pages-login');
 }
 
 module.exports.login = async (request, response) => {
-    console.log(request.body)
     const redirectUrl = request.session.returnTo || '/dashboard';
     delete request.session.returnTo;
     response.redirect(redirectUrl);

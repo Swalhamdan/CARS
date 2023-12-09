@@ -1,31 +1,18 @@
-const getCourseDetails = (request, response) => {
-    let courseId = request.params.courseId;
-    data = {
-        id:101,
-        numRegisteredStudents: 10,
-        numPassedStudents: 5,
-        activities: [
-            { name: "Quiz 1", weight: 5 },
-            { name: "Quiz 2", weight: 5 },
-            { name: "Major 1", weight: 20 },
-            { name: "Major 2", weight: 20 },
-            { name: "Homeworks", weight: 5 },
-            { name: "Attendance", weight: 5 },
-            { name: "Final", weight: 40 }
-        ],
-        gradeDistribution: [
-            { grade: "A", count: 1 },
-            { grade: "B", count: 1 },
-            { grade: "C", count: 2 },
-            { grade: "D", count: 1 },
-            { grade: "F", count: 5 },
-        ],
-        testimonials: [
-            { studentId: "219110250", major: "Information Systems", feedback: "I sucked at this course" },
-            { studentId: "219110250", major: "Information Systems", feedback: "I sucked at this course" }
-        ],
-    }
-    return response.render("course/course-details", { data: data })
+const Course = require('../model/course.model');
+
+module.exports.getCourses = async (request, response) => {
+    const courses = await Course.find({});
+    response.render('dashboard/coursesList', { courses })
 }
 
-module.exports = { getCourseDetails }
+/* ****** Show a specific course START ****** */
+
+module.exports.getCourseDetails = async (request, response) => {
+    const course = await Course.findById(request.params.id); 
+    if (!course) {
+        return response.redirect('/dashboard');
+    }
+    response.render('course/course-details', { course });
+}
+
+/* ****** Show a specific course END ****** */

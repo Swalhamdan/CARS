@@ -56,7 +56,7 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown">
             <img src="/img/userImage.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block ps-2">Student ID</span>
+            <span class="d-none d-md-block ps-2"><%= account.email %></span>
           </a><!-- End Profile Iamge Icon -->
 
           <!-- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -130,34 +130,22 @@
     
     <section class="section profile">
         <div class="row justify-content-center">
-        
-            <!-- Cards -->
-            <div class="card col-4" style="padding-top: 10px; margin-right: auto; margin-left: auto; padding-bottom: 5px;">
-                <div id="allCoursesContainer" class="container">
-                    <h4 id="courseName" style="text-align: center; padding-bottom: 10px;"><b><a href="index.html">CS101</a></b></h4>
-                    <div class="row" style="text-align: center; margin-bottom: 15px;">
-                      <div class="col">
-                          <h5 id="courseName" href="courseDash.html">Course Name: Introduction to Java Programming</h5>
-                          <br>
-                          <h5 id="courseSection">Course Section: 342</h5>
-                      </div>
+            <% courses.forEach(function(course) { %>
+                <!-- Cards for each course -->
+                <div class="card col-4" style="padding-top: 10px; margin-right: auto; margin-left: auto; padding-bottom: 5px;">
+                    <div class="container">
+                        <h4 style="text-align: center; padding-bottom: 10px;">
+                            <b><a href="/course/<%= course._id %>"><%= course.course_id %></a></b>
+                        </h4>
+                        <div class="row" style="text-align: center; margin-bottom: 15px;">
+                            <div class="col">
+                                <h5><%= course.name %></h5>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="card col-4" style="padding-top: 10px; margin-right: auto; margin-left: auto; padding-bottom: 5px;">
-                <div id="allCoursesContainer" class="container">
-                <h4 id="courseName" style="text-align: center; padding-bottom: 10px;"><b><a href="index.html">CS210</a></b></h4>
-                <div class="row" style="text-align: center; margin-bottom: 15px;">
-                    <div class="col">
-                      <h5 id="courseName" href="courseDash.html">Course Name: Data Structers</h5>
-                      <br>
-                      <h5 id="courseSection">Course Section: 321</h5>
-                    </div>
-                </div>
-              </div>
-            </div>
+            <% }); %>
+        </div>
     </section>
 
   </main><!-- End #main -->

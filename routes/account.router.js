@@ -13,7 +13,7 @@ router.route('/register')
 
 router.route('/login')
     .get(account.renderLogin)
-    .post(passport.authenticate('local', { failureRedirect: '/account/login' }), account.login)
+    .post(passport.authenticate('local', { failureRedirect: '/account/login' }), catchAsync(account.login))
 
 router.get('/logout', account.logout)
 
